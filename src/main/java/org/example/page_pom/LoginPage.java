@@ -1,6 +1,7 @@
 package org.example.page_pom;
 
 
+import org.example.utils.PropertiesReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -26,7 +27,7 @@ public class LoginPage {
     private By name = By.xpath(" //span[@id='nav-link-accountList-nav-line-1']");
 
     public String ValidLogin(String user, String pwd){
-        driver.get("https://www.amazon.in/");
+        driver.get(PropertiesReader.readKey("url"));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.manage().window().maximize();
         wait.until(ExpectedConditions.visibilityOfElementLocated(continueshopping)).click();
