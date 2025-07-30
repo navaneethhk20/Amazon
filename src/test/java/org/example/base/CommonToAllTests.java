@@ -9,11 +9,11 @@ import org.testng.annotations.BeforeMethod;
 
 public class CommonToAllTests {
 
-    @BeforeMethod
+    @BeforeClass
     public void setup(){
         DriverManager.init();
     }
-    @AfterMethod
+    @AfterClass
     public void tearDown(){
         DriverManager.down();
     }

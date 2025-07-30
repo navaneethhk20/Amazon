@@ -1,6 +1,7 @@
 package org.example.page_pom;
 
 
+import org.example.base.CommonToAllPages;
 import org.example.utils.PropertiesReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class LoginPage {
+public class LoginPage extends CommonToAllPages {
     WebDriver driver;
 
     public LoginPage(WebDriver driver){
@@ -27,16 +28,14 @@ public class LoginPage {
     private By name = By.xpath(" //span[@id='nav-link-accountList-nav-line-1']");
 
     public String ValidLogin(String user, String pwd){
-        driver.get(PropertiesReader.readKey("url"));
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        driver.manage().window().maximize();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(continueshopping)).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(expandbutton)).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(signin)).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(usernamebutton)).sendKeys(user);
-        driver.findElement(submitbutton).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(passwordbutton)).sendKeys(pwd);
-        driver.findElement(submitbutton).click();
+        openUrl();
+        visiblityofElement(continueshopping).click();
+        visiblityofElement(expandbutton).click();
+        visiblityofElement(signin).click();
+        visiblityofElement(usernamebutton).sendKeys(user);
+        clickElement(submitbutton);
+        visiblityofElement(passwordbutton).sendKeys(pwd);
+        clickElement(submitbutton);
         String nameofuser = driver.findElement(name).getText();
         return nameofuser;
     }

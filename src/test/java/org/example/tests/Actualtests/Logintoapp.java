@@ -13,6 +13,5 @@ public class Logintoapp extends CommonToAllTests {
         LoginPage loginPage = new LoginPage(DriverManager.getDriver());
         String userlogged = loginPage.ValidLogin(PropertiesReader.readKey("username"),PropertiesReader.readKey("password"));
         Assert.assertEquals(userlogged,PropertiesReader.readKey("expecteduser"));
-
     }
 }
