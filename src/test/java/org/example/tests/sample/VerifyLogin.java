@@ -1,5 +1,6 @@
-package org.example.tests;
+package org.example.tests.sample;
 
+import org.example.base.CommonToAllTests;
 import org.example.page_pom.LoginPage;
 import org.example.utils.PropertiesReader;
 import org.openqa.selenium.WebDriver;
