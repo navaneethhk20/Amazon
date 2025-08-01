@@ -23,13 +23,13 @@ public class LoginPage extends CommonToAllPages {
     private By signin=By.xpath("//span[text()='Sign in']");
     private By usernamebutton = By.xpath("//input[@id='ap_email_login']");
     private By passwordbutton = By.xpath("//input[@type='password']");
-    private By continueshopping = By.xpath("//button[@type='submit']");
+   // private By continueshopping = By.xpath("//button[@type='submit']");
     private By submitbutton = By.xpath("//input[@type='submit']");
     private By name = By.xpath(" //span[@id='nav-link-accountList-nav-line-1']");
 
     public String ValidLogin(String user, String pwd){
         openUrl();
-        visiblityofElement(continueshopping).click();
+        //visiblityofElement(continueshopping).click();
         visiblityofElement(expandbutton).click();
         visiblityofElement(signin).click();
         visiblityofElement(usernamebutton).sendKeys(user);
