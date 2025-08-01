@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <!-- Define log file paths -->
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Property>
+        <Property name="LOG_FILE_PATH">logs</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Console Appender for immediate feedback -->
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%highlight{${LOG_PATTERN}}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=blue, DEBUG=green bold, TRACE=blue}"/>
+        </Console>
+
+        <!-- File Appender for all logs -->
+        <File name="FileAppender" fileName="${LOG_FILE_PATH}/amazon-automation.log" append="false">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </File>
+
+        <!-- Rolling File Appender for test execution logs -->
+        <RollingFile name="TestExecutionAppender" fileName="${LOG_FILE_PATH}/test-execution.log"
+                     filePattern="${LOG_FILE_PATH}/test-execution-%i.log.gz">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+
+        <!-- Rolling File Appender for Selenium WebDriver logs -->
+        <RollingFile name="WebDriverAppender" fileName="${LOG_FILE_PATH}/webdriver.log"
+                     filePattern="${LOG_FILE_PATH}/webdriver-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="5MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+        <!-- Error File Appender for errors and failures -->
+        <File name="ErrorAppender" fileName="${LOG_FILE_PATH}/errors.log" append="false">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+        </File>
+
+        <!-- Page Object Model specific logs -->
+        <RollingFile name="PageObjectAppender" fileName="${LOG_FILE_PATH}/page-objects.log"
+                     filePattern="${LOG_FILE_PATH}/page-objects-%d{yyyy-MM-dd}.log.gz">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <DefaultRolloverStrategy max="7"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <!-- Your main framework package logger -->
+        <Logger name="org.example" level="DEBUG" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="FileAppender"/>
+            <AppenderRef ref="TestExecutionAppender"/>
+            <AppenderRef ref="ErrorAppender"/>
+        </Logger>
+
+        <!-- Test-specific loggers -->
+        <Logger name="org.example.tests" level="INFO" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="TestExecutionAppender"/>
+            <AppenderRef ref="ErrorAppender"/>
+        </Logger>
+
+        <!-- Page Object Model loggers -->
+        <Logger name="org.example.page_pom" level="DEBUG" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="PageObjectAppender"/>
+            <AppenderRef ref="ErrorAppender"/>
+        </Logger>
+
+        <!-- Base and utility classes -->
+        <Logger name="org.example.base" level="INFO" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="FileAppender"/>
+        </Logger>
+
+        <Logger name="org.example.utils" level="DEBUG" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="FileAppender"/>
+        </Logger>
+
+        <!-- WebDriver specific logging -->
+        <Logger name="org.example.driver" level="DEBUG" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="WebDriverAppender"/>
+            <AppenderRef ref="ErrorAppender"/>
+        </Logger>
+
+        <!-- Selenium WebDriver logs (reduce verbosity) -->
+        <Logger name="org.openqa.selenium" level="WARN" additivity="false">
+            <AppenderRef ref="WebDriverAppender"/>
+        </Logger>
+
+        <!-- HTTP Client logs (for API calls if any) -->
+        <Logger name="org.apache.http" level="WARN" additivity="false">
+            <AppenderRef ref="WebDriverAppender"/>
+        </Logger>
+
+        <!-- TestNG logs -->
+        <Logger name="org.testng" level="INFO" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="TestExecutionAppender"/>
+        </Logger>
+
+        <!-- Root logger for everything else -->
+        <Root level="WARN">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="FileAppender"/>
+            <AppenderRef ref="ErrorAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
