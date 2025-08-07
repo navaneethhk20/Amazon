@@ -23,7 +23,5 @@ public class Logintoapp extends CommonToAllTests {
         String userlogged = loginPage.ValidLogin(PropertiesReader.readKey("username"),PropertiesReader.readKey("password"));
         Assert.assertEquals(userlogged,PropertiesReader.readKey("expecteduser"));
         logger.info("Login test completed successfully");
-
-
     }
 }
