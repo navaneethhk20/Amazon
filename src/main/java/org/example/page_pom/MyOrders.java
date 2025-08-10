@@ -3,16 +3,18 @@ import org.example.base.CommonToAllPages;
 import org.example.utils.PropertiesReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 public class MyOrders extends CommonToAllPages {
-    
+
     WebDriver driver;
 
     public  MyOrders(WebDriver driver){
         this.driver =driver;
     }
 
-    private By expandbutton = By.xpath("//button[@aria-label='Expand Account and Lists']");
+   // private By expandbutton = By.xpath("//button[@aria-label='Expand Account and Lists']");
     private By myAccount= By.xpath("//a[@aria-controls=\"nav-flyout-accountList\"] ");
     private By yourAccountSelector= By.xpath("//h1[normalize-space()='Your Account']");
     private By yourOrdersSelector = By.xpath("//h2[normalize-space()='Your Orders']");
@@ -28,23 +30,22 @@ public class MyOrders extends CommonToAllPages {
     private By addresscity= By.xpath("//input[@id=\"address-ui-widgets-enterAddressCity\"]");
     private By statedropdown= By.xpath("//span[@id=\"address-ui-widgets-enterAddressStateOrRegion\"]");
     private By dropdownofmystate =By.xpath("//span[text()=\"KARNATAKA\"]");
-    private By submit= By.xpath("//span[text()=\"Add address\"]");
+    private By submit= By.xpath("//span[@id=\"address-ui-widgets-form-submit-button\"]");
 
     public void addANewAddress(){
-        visiblityofElement(expandbutton).click();
-        visiblityofElement(myAccount).click();
+       // visiblityofElement(expandbutton).click();
+
+        presenceOfElement(myAccount).click();
         presenceOfElement(yourAddressesSelector).click();
         visiblityofElement(addAddressButton).click();
         visiblityofElement(enterName).sendKeys(PropertiesReader.readKey("name"));
         enterInput(enterPhonenumber,PropertiesReader.readKey("number"));
         enterInput(postalcode,PropertiesReader.readKey("postnum"));
         enterInput(enterAdressLine1,PropertiesReader.readKey("address1"));
-        enterInput(enteradressline2,PropertiesReader.readKey("address2"));
+        visiblityofElement(enteradressline2).sendKeys(PropertiesReader.readKey("address2"));
         enterInput(landmark,PropertiesReader.readKey("landmark"));
         enterInput(addresscity,PropertiesReader.readKey("cityname"));
-        clickElement(statedropdown);
-        visiblityofElement(dropdownofmystate).click();
-        clickElement(submit);
+        visiblityofElement(submit).click();
     }
 
 

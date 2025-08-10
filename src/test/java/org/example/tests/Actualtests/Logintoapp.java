@@ -23,8 +23,14 @@ public class Logintoapp extends CommonToAllTests {
         String userlogged = loginPage.ValidLogin(PropertiesReader.readKey("username"),PropertiesReader.readKey("password"));
         Assert.assertEquals(userlogged,PropertiesReader.readKey("expecteduser"));
         logger.info("Login test completed successfully");
+    }
+    @Test(dependsOnMethods = "logintoamazn")
+    public void addAddressTest() {
+        logger.info("Starting add address test");
+
         MyOrders myOrders = new MyOrders(DriverManager.getDriver());
         myOrders.addANewAddress();
 
+        logger.info("Add address test completed successfully");
     }
 }
