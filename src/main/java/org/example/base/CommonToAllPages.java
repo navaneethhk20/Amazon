@@ -40,7 +40,7 @@ public class CommonToAllPages {
         return getDriver().findElement(key);
     }
     public WebElement visiblityofElement(By location){
-        return new WebDriverWait(getDriver(),Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(location));
+        return new WebDriverWait(getDriver(),Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOfElementLocated(location));
     }
     public WebElement presenceOfElement(By location){
         return  new WebDriverWait(getDriver(), Duration.ofSeconds(10)).until(ExpectedConditions.presenceOfElementLocated(location));
