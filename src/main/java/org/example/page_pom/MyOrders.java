@@ -34,7 +34,6 @@ public class MyOrders extends CommonToAllPages {
 
     public void addANewAddress(){
        // visiblityofElement(expandbutton).click();
-
         presenceOfElement(myAccount).click();
         presenceOfElement(yourAddressesSelector).click();
         visiblityofElement(addAddressButton).click();
